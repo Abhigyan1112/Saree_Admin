@@ -1,14 +1,25 @@
 .bg-lavender {
-  background-color: hsl(240, 94%, 81%); /* Lavender color */
+  background-color: rgb(199, 186, 255);
+  position:absolute;
+  left:0;
+  top:12vh;
 }
 
 .nav-link {
   font-weight: bold;
   padding: 10px 20px;
-  color:black;
 }
 
 .nav-link:hover {
-  background-color: #6a58f4; /* Thistle color */
+  background-color: #8375ea; /* Thistle color */
   border-radius: 5px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

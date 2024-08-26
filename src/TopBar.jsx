@@ -2,18 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './TopBar.css'
 import { Link, useNavigate } from 'react-router-dom';
 export default function Navbar() {
-    const navigate = useNavigate();
-    const [login, setlogin] = useState(null);
-    useEffect(()=>{
-        if(localStorage.getItem("vastrikaUser")!==null){
-            setlogin(JSON.parse(localStorage.getItem("vastrikaUser")));
-        }
-    },[])
-    const dologout = () => {
-        localStorage.removeItem("vastrikaUser");
-        navigate("/")
-        window.location.reload();
-    }
     return (
         <nav>
             <div className="wrapper left">
@@ -23,18 +11,6 @@ export default function Navbar() {
                     <h1 className="title">astrika</h1>
                     <h2 className="punchline">Threads of Tradition</h2>
                 </div>
-            </div>
-            <div className="right">
-                {
-                login===null?
-                <>
-                    <button onClick={()=>navigate("/custLogin")} className='gotologin-btn'>Login</button>
-                    <Link className="gotoregister-link" to='/custRegister'>Register</Link>
-                </>
-                :<>
-                    <button onClick={dologout} className="logout-btn">Log out</button>
-                </>
-                }
             </div>
         </nav>
     )

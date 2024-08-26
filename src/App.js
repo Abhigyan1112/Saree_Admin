@@ -9,9 +9,6 @@ function App() {
       <div className="d-flex">
         <TopBar />
         <Sidebar />
-        <div className="content p-3">
-          {/* Your main content goes here */}
-        </div>
       </div>
     </div>
   );
