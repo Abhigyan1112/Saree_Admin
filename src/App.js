@@ -1,14 +1,33 @@
 import React from 'react';
-import Sidebar from './SideBar.js';
+import Sidebar from './SideBar.jsx';
 import TopBar from './TopBar.jsx';
+import Request from './Requests.jsx';
+import Verify from './BusVerification.jsx';
+import Tracker from './Track.jsx';
 import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
+  const router = createBrowserRouter([
+		{
+			path:'/', element: <><TopBar/><Sidebar/></>
+		},
+		{
+			path:'/request', element: <><TopBar/><Sidebar/><Request/></>
+		},
+		{
+			path:'/verify', element: <><TopBar/><Sidebar/><Verify/></>
+		},
+    {
+			path:'/tracker', element: <><TopBar/><Sidebar/><Tracker/></>
+		}
+	])
   return (
     <div className="App">
+      <RouterProvider router={router}/>
       <div className="d-flex">
-        <TopBar />
-        <Sidebar />
+        {/* <Request/> */}
+        {/* <Verify/> */}
       </div>
     </div>
   );

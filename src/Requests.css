@@ -1,0 +1,17 @@
+.request-approve{
+    margin-right:20px;
+    background-color:rgb(125, 254, 153);
+    border-radius: 8px;
+    transition: transform 0.08s ease-in-out;
+}
+.request-approve:hover{
+    transform: scale(1.2);
+}
+.request-reject{
+    background-color: rgb(254, 128, 128);
+    border-radius: 8px;
+    transition: transform 0.08s ease-in-out;
+}
+.request-reject:hover{
+    transform: scale(1.2);
+}
