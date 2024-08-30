@@ -7,7 +7,6 @@
 
 .request-table{
   position:absolute;
-  left:13vw;
   top:12vh;
 }
 
@@ -17,6 +16,7 @@
   width:100%;
   text-align: left;
 }
+
 
 .nav-link:hover {
   background-color: #8375ea;
@@ -30,4 +30,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.content{
+  padding:20px;
 }

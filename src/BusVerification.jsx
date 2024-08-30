@@ -3,7 +3,8 @@ import Table from 'react-bootstrap/Table';
 import './Requests.css';
 export default function Verify() {
     return(
-        <Table responsive="sm" className="request-table">
+        <div className='content'>
+        <Table responsive="sm" className="request-table content">
             <thead>
                 <tr>
                     <th>Business Name</th>
@@ -64,5 +65,6 @@ export default function Verify() {
                 </tr>
             </tbody>
         </Table>
+        </div>
     )
 }

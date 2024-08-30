@@ -4,6 +4,7 @@ import TopBar from './TopBar.jsx';
 import Request from './Requests.jsx';
 import Verify from './BusVerification.jsx';
 import Tracker from './Track.jsx';
+import AddCity from './AddCity.jsx';
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -20,6 +21,9 @@ function App() {
 		},
     {
 			path:'/tracker', element: <><TopBar/><Sidebar/><Tracker/></>
+		},
+		{
+			path:'/addCity', element: <><TopBar/><Sidebar/><AddCity/></>
 		}
 	])
   return (

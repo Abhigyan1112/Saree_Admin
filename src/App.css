@@ -3,3 +3,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.content{
+  padding-left:200px;
+}
+
+label{
+  padding-right:10px;
+}

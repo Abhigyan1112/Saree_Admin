@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import './Requests.css';
 export default function Tracker() {
     return(
+        <div className='content'>
         <Table responsive="sm" className="request-table">
             <thead>
                 <tr>
@@ -64,5 +65,6 @@ export default function Tracker() {
                 </tr>
             </tbody>
         </Table>
+        </div>
     )
 }

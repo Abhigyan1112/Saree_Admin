@@ -33,6 +33,12 @@ nav{
     font: 3.2vh "Great Vibes", Arial;
     color:rgb(97, 0, 189);
 }
+.admin-Pannel-title{
+    left:20vh;
+    font-weight: bolder;
+    font-size:5vh;
+    top:2vh;
+}
 .gotologin-btn{
     padding: 3px 20px;
     background-color: white;
