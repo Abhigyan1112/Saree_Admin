@@ -20,7 +20,6 @@
     text-transform: uppercase;
 }
 
-/* Wrapper Styling */
 .wrapper {
     margin-bottom: 20px;
 }
@@ -33,7 +32,6 @@
     font-weight: bold;
 }
 
-/* Input and Select Styling */
 .wrapper input, 
 .wrapper select {
     width: 100%;
@@ -60,7 +58,6 @@
     cursor: pointer;
 }
 
-/* Button Styling */
 .add-button {
     width: 100%;
     padding: 10px;
