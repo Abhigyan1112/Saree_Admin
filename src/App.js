@@ -1,10 +1,10 @@
 import React from 'react';
-import Sidebar from './SideBar.jsx';
-import TopBar from './TopBar.jsx';
-import Request from './Requests.jsx';
-import Verify from './BusVerification.jsx';
-import Tracker from './Track.jsx';
-import AddCity from './AddCity.jsx';
+import Sidebar from './Components/SideBar.jsx';
+import TopBar from './Components/TopBar.jsx';
+import Request from './Components/Requests.jsx';
+import Verify from './Components/BusVerification.jsx';
+import Tracker from './Components/Track.jsx';
+import AddCity from './Components/AddCity.jsx';
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -29,10 +29,6 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router}/>
-      <div className="d-flex">
-        {/* <Request/> */}
-        {/* <Verify/> */}
-      </div>
     </div>
   );
 }

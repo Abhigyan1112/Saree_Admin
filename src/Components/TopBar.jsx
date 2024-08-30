@@ -9,7 +9,7 @@ export default function Navbar() {
                 <h1 className="title-bigletter">V</h1>
                 <div style={{padding:"0"}}>
                     <h1 className="title">astrika</h1>
-                    <h2 className="punchline">Admin</h2>
+                    <h2 className="punchline">for Admin</h2>
                 </div>
                 <div className="punchline admin-Pannel-title">
                     The Admin Pannel

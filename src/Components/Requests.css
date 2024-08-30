@@ -1,0 +1,29 @@
+.request-approve{
+    margin-right:20px;
+    background-color:rgb(125, 254, 153);
+    border-radius: 8px;
+    transition: transform 0.08s ease-in-out;
+}
+.request-approve:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.request-reject{
+    background-color: rgb(254, 128, 128);
+    border-radius: 8px;
+    transition: transform 0.08s ease-in-out;
+}
+.request-reject:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+.request-approve, .request-reject {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 15px;
+}
