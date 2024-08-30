@@ -12,7 +12,7 @@ export default function Navbar() {
                     <h2 className="punchline">Admin</h2>
                 </div>
                 <div className="punchline admin-Pannel-title">
-                    The Admin Pannel
+                    The Admin Panel
                 </div>
             </div>
         </nav>
