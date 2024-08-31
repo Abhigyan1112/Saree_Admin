@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import './AddCity.css';
 
-// Define a string with all states and union territories separated by commas
-const statesAndUTs = `
-Andhra Pradesh, Arunachal Pradesh, Assam, Bihar, Chhattisgarh, Goa, Gujarat, Haryana, Himachal Pradesh, Jharkhand, Karnataka, Kerala, Madhya Pradesh, Maharashtra, Manipur, Meghalaya, Mizoram, Nagaland, Odisha, Punjab, Rajasthan, Sikkim, Tamil Nadu, Telangana, Tripura, Uttar Pradesh, Uttarakhand, West Bengal, Andaman and Nicobar Islands, Chandigarh, Dadra and Nagar Haveli and Daman and Diu, Lakshadweep, Delhi, Puducherry`;
-
-const statesArray = statesAndUTs.trim().split(', ');
+const states = [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
+    "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", 
+    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", 
+    "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", 
+    "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", 
+    "Dadra and Nagar Haveli and Daman and Diu", "Lakshadweep", "Delhi", 
+    "Puducherry"
+];
 
 export default function AddCity() {
     const [selectedState, setSelectedState] = useState('');
@@ -23,12 +28,18 @@ export default function AddCity() {
             </div>
             <div className="wrapper">
                 <label>State Name</label>
-                <select className="state-name-dropdown" value={selectedState} onChange={handleStateChange}>
+                {/* <select className="state-name-dropdown" value={selectedState} onChange={handleStateChange}>
                     <option value="" disabled>Select State</option>
                     {statesArray.map((state, index) => (
                         <option key={index} value={state}>{state}</option>
                     ))}
-                </select>
+                </select> */}
+                <select className="state-name-dropdown">
+                    <option value="" disabled>Select State</option>
+                    {states.map((state, index) => (
+                        <option key={index} value={state}>{state}</option>
+                    ))}
+                </select>  
             </div>
             <div className="wrapper">
                 <label>PIN CODE</label>
