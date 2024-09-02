@@ -1,7 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 import './Requests.css';
+import {busData} from './Businessdata';
+import { useState } from 'react';
+
 export default function Verify() {
+    const [tableData,setTableData] = useState(busData);
+    
+    const deleteRow = (GSTIn)=>{
+       const updateTable = tableData.filter(items => items.GSTIn != GSTIn );
+       setTableData(updateTable);
+    }
+
+    const items = tableData.map((items,index)=>{
+        return(
+        <DisplayData Name={items.Name} GSTIn={items.GSTIn} deleteRow={deleteRow}/>
+        )
+   })
     return(
         <div className='content'>
         <Table responsive="sm" className="request-table content">
@@ -13,58 +28,24 @@ export default function Verify() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>Geetansh gandhi</td>
-                    <td>AAA</td>
-                    <td>
-                        <button className="request-approve">Approve
-                        </button>
-                        <button className="request-reject">Reject
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>Geetansh gandhi</td>
-                    <td>AAA</td>
-                    <td>
-                        <button className="request-approve">Approve
-                        </button>
-                        <button className="request-reject">Reject
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>Geetansh gandhi</td>
-                    <td>AAA</td>
-                    <td>
-                        <button className="request-approve">Approve
-                        </button>
-                        <button className="request-reject">Reject
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>Geetansh gandhi</td>
-                    <td>AAA</td>
-                    <td>
-                        <button className="request-approve">Approve
-                        </button>
-                        <button className="request-reject">Reject
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>Geetansh gandhi</td>
-                    <td>AAA</td>
-                    <td>
-                        <button className="request-approve">Approve
-                        </button>
-                        <button className="request-reject">Reject
-                        </button>
-                    </td>
-                </tr>
+               {items}
             </tbody>
         </Table>
         </div>
+    )
+}
+
+function DisplayData(props){
+    return(
+        <tr>
+        <td>{props.Name}</td>
+        <td>{props.GSTIn}</td>
+        <td>
+            <button className="request-approve" onClick={()=> props.deleteRow(props.GSTIn)}>Resolved
+            </button>
+            <button className="request-reject" onClick={()=> props.deleteRow(props.GSTIn)}>Unresolved
+            </button>
+        </td>
+         </tr>
     )
 }

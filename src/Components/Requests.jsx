@@ -1,7 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 import './Requests.css';
+import { requestData } from './requestData';
+import { useState } from 'react';
 export default function Request() {
+    const [tableData,setTableData] = useState(requestData);
+    
+    const deleteRow = (Pincode)=>{
+       const updateTable = tableData.filter(items => items.Pincode != Pincode );
+       setTableData(updateTable);
+    }
+
+    const items = tableData.map((items,index)=>{
+        return(
+        <DisplayData Pincode={items.Pincode} city={items.city} State={items.State}  deleteRow={deleteRow}/>
+        )
+   })
     return(
         <div className="content">
         <Table responsive="sm" className="request-table">
@@ -14,63 +28,25 @@ export default function Request() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>450100</td>
-                    <td>AAA</td>
-                    <td>CGDg</td>
-                    <td>
-                        <button className="request-approve">Resolved
-                        </button>
-                        <button className="request-reject">Unresolved
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>123141</td>
-                    <td>AAA</td>
-                    <td>CGDg</td>
-                    <td>
-                        <button className="request-approve">Resolved
-                        </button>
-                        <button className="request-reject">Unresolved
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>123421</td>
-                    <td>AAA</td>
-                    <td>CGDg</td>
-                    <td>
-                        <button className="request-approve">Resolved
-                        </button>
-                        <button className="request-reject">Unresolved
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>343222</td>
-                    <td>AAA</td>
-                    <td>CGDg</td>
-                    <td>
-                        <button className="request-approve">Resolved
-                        </button>
-                        <button className="request-reject">Unresolved
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                <td>443123</td>
-                    <td>AAA</td>
-                    <td>CGDg</td>
-                    <td>
-                        <button className="request-approve">Resolved
-                        </button>
-                        <button className="request-reject">Unresolved
-                        </button>
-                    </td>
-                </tr>
+                {items}
             </tbody>
         </Table>
         </div>
+    )
+}
+
+function DisplayData(props){
+    return(
+        <tr>
+        <td>{props.Pincode}</td>
+        <td>{props.city}</td>
+        <td>{props.State}</td>
+        <td>
+            <button className="request-approve" onClick={()=> props.deleteRow(props.Pincode)}>Resolved
+            </button>
+            <button className="request-reject" onClick={()=> props.deleteRow(props.Pincode)}>Unresolved
+            </button>
+        </td>
+         </tr>
     )
 }

@@ -5,11 +5,6 @@
   top:12vh;
 }
 
-.request-table{
-  position:absolute;
-  top:12vh;
-}
-
 .nav-link {
   font-weight: bold;
   padding: 10px 20px;
@@ -31,6 +26,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.content{
-  padding:20px;
-}
+
