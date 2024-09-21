@@ -8,17 +8,11 @@
     background-color: #218838;
     transform: scale(1.05);
 }
-
-.request-reject{
-    background-color: rgb(254, 128, 128);
-    border-radius: 8px;
-    transition: transform 0.08s ease-in-out;
-}
 .request-reject:hover {
     background-color: #c82333;
     transform: scale(1.05);
 }
-.request-approve, .request-reject {
+.request-approve{
     padding: 8px 12px;
     font-size: 14px;
     border: none;

@@ -44,8 +44,6 @@ function DisplayData(props){
         <td>
             <button className="request-approve" onClick={()=> props.deleteRow(props.Pincode)}>Resolved
             </button>
-            <button className="request-reject" onClick={()=> props.deleteRow(props.Pincode)}>Unresolved
-            </button>
         </td>
          </tr>
     )

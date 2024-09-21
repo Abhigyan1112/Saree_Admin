@@ -43,8 +43,6 @@ function DisplayData(props){
         <td>
             <button className="request-approve" onClick={()=> props.deleteRow(props.OrderId)}>Resolved
             </button>
-            <button className="request-reject" onClick={()=> props.deleteRow(props.OrderId)}>Unresolved
-            </button>
         </td>
          </tr>
     )

@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './AddCity.css';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const states = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -13,36 +16,57 @@ const states = [
 ];
 
 export default function AddCity() {
-    const [cityName, setCityName] = useState('');
-    const [state, setState] = useState('');
-    const [pinCode, setPinCode] = useState('');
+    const [cityData,setCityData]=useState({
+        cityName:'',
+        state:'',
+        pinCode:''
+    });
 
-    const handleCityNameChange = (e) => setCityName(e.target.value);
-    const handleStateChange = (e) => setState(e.target.value);
-    const handlePinCodeChange = (e) => setPinCode(e.target.value);
+    const handleCityChange = (e,field) => {
+        setCityData({
+            ...cityData, [field]: e.target.value 
+        });
+    }
 
-    const sendData = (e) => {
+    const sendData = async(e) => {
         e.preventDefault();
-        const cityData={
-            cityId:pinCode,
-            cityName:cityName,
-            state:state
-        };
+        if(cityData.cityName===''){
+            toast.error("ENTER CITY NAME");
+            return;
+        }
+        if(cityData.state===''){
+            toast.error("SELECT STATE");
+            return;
+        }
+        if(cityData.pinCode===''){
+            toast.error("ENTER PIN CODE");
+            return;
+        }
 
-        fetch('https://localhost:8080/city/add',{
-            method: 'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            body: JSON.stringify(cityData),
-        })
-        .then(response => response.json())
-        .then(data=> {
-            setCityName('');
-            setState('');
-            setPinCode('');
-        })
-        .catch(error => console.error('Error:', error));
+        const data = {
+            pinCode: cityData.pinCode,
+            cityName: cityData.cityName,
+            state: cityData.state
+        };
+        
+        try{
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/city/add`,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(data)
+            });
+            const responseText= await response.text();
+            if (responseText==='Invalid Name' || responseText==='Invalid pincode') {
+                toast.error(responseText.toUpperCase());
+              } else {
+                toast.success('CITY ADDED');
+            }
+        }
+        catch(error){
+            toast.error('Error adding city: '+error.message);
+        }
     };
 
     return (
@@ -51,7 +75,7 @@ export default function AddCity() {
             <form onSubmit={sendData}>
                 <div className="wrapper">
                     <label>City Name</label>
-                    <input value={cityName} onChange={handleCityNameChange} placeholder='Enter City Name' />
+                    <input value={cityData.cityName} onChange={(e)=>handleCityChange(e,"cityName")} placeholder='Enter City Name' />
                 </div>
                 <div className="wrapper">
                     <label>State Name</label>
@@ -61,21 +85,22 @@ export default function AddCity() {
                             <option key={index} value={state}>{state}</option>
                         ))}
                     </select> */}
-                    <select className="state-name-dropdown" value={state} onChange={handleStateChange}>
+                    <select className="state-name-dropdown" value={cityData.state} onChange={(e)=>handleCityChange(e,"state")}>
                         <option value="" disabled>Select State</option>
-                        {states.map((state) => (
-                            <option value={state}>{state}</option>
+                        {states.map((state,index) => (
+                            <option key={index} value={state}>{state}</option>
                         ))}
                     </select>  
                 </div>
                 <div className="wrapper">
                     <label>PIN CODE</label>
-                    <input value={pinCode} onChange={handlePinCodeChange} placeholder='Enter PIN CODE' />
+                    <input value={cityData.pinCode} onChange={(e)=>handleCityChange(e,"pinCode")} placeholder='Enter PIN CODE' />
                 </div>
                 <div className="wrapper">
-                    <button className="add-button" type='submit' >Add</button>
+                    <button className="add-button" type="submit">Add</button>
                 </div>
             </form>
+            <ToastContainer/>
         </div>
     );
 }
