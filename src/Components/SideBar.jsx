@@ -7,7 +7,10 @@ const Sidebar = () => {
         <div className="d-flex flex-column vh-100 bg-lavender ">
             <ul className="nav flex-column">
                 <li className="nav-item">
-                <button onClick={()=>navigate("/request")} className='nav-link text-white'>Requests</button>
+                <button onClick={()=>navigate("/request")} className='nav-link text-white'>City Requests</button>
+                </li>
+                <li className="nav-item">
+                <button onClick={()=>navigate("/cat-request")} className='nav-link text-white'>Category Requests</button>
                 </li>
                 <li className="nav-item">
                 <button onClick={()=>navigate("/verify")} className='nav-link text-white'>Business Verification</button>

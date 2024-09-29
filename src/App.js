@@ -4,6 +4,7 @@ import TopBar from './Components/TopBar.jsx';
 import Request from './Components/Requests.jsx';
 import Verify from './Components/BusVerification.jsx';
 import Tracker from './Components/Track.jsx';
+import CatRequest from './Components/Cat-Requests.jsx';
 import AddCity from './Components/AddCity.jsx';
 import AddCategory from './Components/AddCategory.jsx';
 import './App.css';
@@ -16,6 +17,9 @@ function App() {
 		},
 		{
 			path:'/request', element: <><TopBar/><Sidebar/><Request/></>
+		},
+		{
+			path:'/cat-request', element: <><TopBar/><CatRequest/><Sidebar/></>
 		},
 		{
 			path:'/verify', element: <><TopBar/><Sidebar/><Verify/></>

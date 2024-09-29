@@ -3,12 +3,12 @@ import Table from 'react-bootstrap/Table';
 import './Requests.css';
 import {toast,ToastContainer} from 'react-toastify';
 import { useState , useEffect} from 'react';
-export default function Request() {
+export default function CatRequest() {
     const [tableData,setTableData] = useState([]);
     
     useEffect(() => {
         const fetchData= async() => {
-            const response = await fetch (`${process.env.REACT_APP_BACKEND}/api/city-requests/unresolved`);
+            const response = await fetch (`${process.env.REACT_APP_BACKEND}/categoryRequest/all`);
             const data = await response.json();
             setTableData(data);
             console.log(data);
@@ -16,11 +16,11 @@ export default function Request() {
         fetchData();
     }, []);
     
-    const deleteRow = async(Pincode)=>{
+    const deleteRow = async(id)=>{
         try{
-            const newCity=tableData.find(CityRequest => CityRequest.pinCode === Pincode);
-            const response= await fetch(`${process.env.REACT_APP_BACKEND}/api/city-requests/update/${newCity.requestId}?status=${true}`,{
-                method:'PUT',
+            const newCategory=tableData.find(CategoryRequest => CategoryRequest.categoryRequestId === id);
+            const response= await fetch(`${process.env.REACT_APP_BACKEND}/categoryRequest/delete/${newCategory.categoryRequestId}`,{
+                method:'DELETE',
                 headers:{
                     'Content-Type':'application/json',
                 },
@@ -31,7 +31,7 @@ export default function Request() {
             }
             toast.success("Request Resolved");
 
-            const updateTable = tableData.filter(CityRequest => CityRequest.pinCode != Pincode );
+            const updateTable = tableData.filter(CategoryRequest => CategoryRequest.categoryRequestId != id );
             setTableData(updateTable);
         }
         catch(error){
@@ -43,20 +43,17 @@ export default function Request() {
         <Table responsive="sm" className="request-table">
             <thead>
                 <tr>
-                    <th>PIN CODE</th>
-                    <th>City</th>
-                    <th>State</th>
+                    <th>Name</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {tableData.length>0?(
-                    tableData.map((CityRequest,index) => (
+                    tableData.map((CategoryRequest,index) => (
                         <DisplayData
-                            key={CityRequest.pinCode}
-                            PinCode={CityRequest.pinCode}
-                            city={CityRequest.cityName}
-                            State={CityRequest.state}
+                            key={CategoryRequest.categoryRequestId}
+                            id={CategoryRequest.categoryRequestId}
+                            Name={CategoryRequest.categoryName}
                             deleteRow={deleteRow}
                         />
                     ))
@@ -75,11 +72,9 @@ export default function Request() {
 function DisplayData(props){
     return(
         <tr>
-        <td>{props.PinCode}</td>
-        <td>{props.city}</td>
-        <td>{props.State}</td>
+        <td>{props.Name}</td>
         <td>
-            <button className="request-approve" onClick={()=> props.deleteRow(props.PinCode)}>
+            <button className="request-approve" onClick={()=> props.deleteRow(props.id)}>
                 Resolved
             </button>
         </td>

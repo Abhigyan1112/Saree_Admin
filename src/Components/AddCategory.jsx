@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import {toast,ToastContainer} from 'react-toastify';
 
 export default function AddCategory() {
     const [categoryName, setCategoryName] = useState('');
 
     const handleCategoryNameChange = (e) => setCategoryName(e.target.value);
 
-    const sendData = (e) => {
+    const sendData = async(e) => {
         e.preventDefault();
-        const categoryName=categoryName;
-
-        fetch('https://localhost:8080/category/add',{
+        if(categoryName===''){
+            toast.error("ENTER CATEGORY");
+            return;
+        }
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/category/add`,{
             method: 'POST',
             headers:{
                 'Content-Type':'application/json',
             },
-            body: JSON.stringify(categoryName),
-        })
-        .then(response => response.json())
-        .then(data=> {
-            setCategoryName('');
-        })
-        .catch(error => console.error('Error:', error));
+            body: JSON.stringify(categoryName)
+        });
+        const responseText= await response.text();
+        if(responseText==='Already Present'){
+            toast.error('CATEGORY ALREADY PRESENT');
+        }
+        else{
+            toast.success('CATEGORY ADDED');
+        }
     };
 
     return (
@@ -35,6 +40,7 @@ export default function AddCategory() {
                     <button className="add-button" type='submit' >Add</button>
                 </div>
             </form>
+            <ToastContainer/>
         </div>
     );
 }
