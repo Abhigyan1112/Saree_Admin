@@ -24,6 +24,9 @@ const Sidebar = () => {
                 <li className="nav-item">
                 <button onClick={()=>navigate("/addCategory")} className='nav-link text-white'>Add Category</button>
                 </li>
+                <li className="nav-item">
+                <button onClick={()=>navigate("/addEmployee")} className='nav-link text-white'>Add Employee</button>
+                </li>
             </ul>
         </div>
     );

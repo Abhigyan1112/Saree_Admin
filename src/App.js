@@ -7,6 +7,7 @@ import Tracker from './Components/Track.jsx';
 import CatRequest from './Components/Cat-Requests.jsx';
 import AddCity from './Components/AddCity.jsx';
 import AddCategory from './Components/AddCategory.jsx';
+import AddEmployee from './Components/AddEmployee.jsx'; // Import AddEmployee component
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -32,11 +33,15 @@ function App() {
 		},
 		{
 			path:'/addCategory', element: <><TopBar/><Sidebar/><AddCategory/></>
+		},
+		{
+			path:'/addEmployee', element: <><TopBar/><Sidebar/><AddEmployee/></> // Add route for AddEmployee
 		}
 	])
+  
   return (
     <div className="App">
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </div>
   );
 }
