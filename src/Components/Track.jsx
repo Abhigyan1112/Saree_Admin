@@ -1,45 +1,38 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 import './Requests.css';
-import {toast,ToastContainer} from 'react-toastify';
-import { useState , useEffect} from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import { useState, useEffect } from 'react';
+import './Track.css';
+
 export default function Tracker() {
-    const [tableData,setTableData] = useState([]);
+    const [tableData, setTableData] = useState([]);
     
     useEffect(() => {
-        const fetchData= async() => {
-            const response = await fetch (`${process.env.REACT_APP_BACKEND}/prodOrd/getAllForAdmin`,{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json',
+        const fetchData = async () => {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/getAllForAdmin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
             });
             const data = await response.json();
             setTableData(data);
-            console.log(data);
         };
         fetchData();
     }, []);
-    
-    const deleteRow = async(orderId,productId)=>{
-        try{
-            const dispatched=tableData.find(ProductOrdered => ProductOrdered.orderId === orderId && ProductOrdered.productId === productId );
 
-            let response=null;
-            if(dispatched.status === 'Packed'){
-                response= await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/setToDispatched?productId=${productId}&orderId=${orderId}`,{
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json',
-                    },
-                });
-            }
+    console.log(tableData);
+    const dispatchOrder = async (orderId, productId) => {
+        try {
+            const dispatched = tableData.find(order => order.orders.orderId === orderId && order.product.productId === productId);
 
-            if(dispatched.status === 'Dispatched'){
-                response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/setToInCity?productId=${productId}&orderId=${orderId}`,{
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json',
+            let response = null;
+            if (dispatched.status === 'Packed') {
+                response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/setToDispatched?productId=${productId}&orderId=${orderId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
                 });
             }
@@ -47,57 +40,75 @@ export default function Tracker() {
             if (!response.ok) {
                 throw new Error(`Error in response, status: ${response.status}`);
             }
-            toast.success("Request Resolved");
 
-            const updateTable = tableData.filter(ProductOrdered => ProductOrdered.productId !== productId && ProductOrdered.orderId !== orderId);
-            setTableData(updateTable);
-        }
-        catch(error){
+            toast.success("Order Dispatched");
+            const updatedTable = tableData.filter(order => !(order.product.productId === productId && order.orders.orderId === orderId));
+            setTableData(updatedTable);
+        } catch (error) {
             toast.error(error.message);
         }
     }
-    return(
+
+    return (
         <div className="content">
-        <Table responsive="sm" className="request-table">
-            <thead>
-                <tr>
-                    <th>productId</th>
-                    <th>orderId</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {tableData.length>0?(
-                    tableData.map((ProductOrdered,index) => (
-                        <DisplayData
-                            key={`${ProductOrdered.productId}-${ProductOrdered.orderId}`}
-                            productId={ProductOrdered.productId}
-                            orderId={ProductOrdered.orderId}
-                            deleteRow={deleteRow}
-                        />
-                    ))
-                    ):(
+            <Table striped bordered hover responsive="sm" className="request-table">
+                <thead>
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Order ID</th>
+                        <th>Product ID</th>
+                        <th>Email</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Delivery Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableData.length > 0 ? (
+                        tableData.map((order) => (
+                            <DisplayData
+                                key={`${order.product.productId}-${order.orders.orderId}`}
+                                orderDate={new Date(order.orders.orderDateTime).toLocaleDateString()}
+                                orderId={order.orders.orderId}
+                                productId={order.product.productId}
+                                email={order.orders.customer.customerEmail} // Assuming this field exists
+                                productName={order.product.productName} // Assuming this field exists
+                                quantity={order.quantity}
+                                deliveryCity= {order.orders.customer.city}// Assuming this field exists
+                                status={order.status}
+                                dispatchOrder={dispatchOrder}
+                            />
+                        ))
+                    ) : (
                         <tr>
-                            <td>No data available</td>
+                            <td colSpan="8">No data available</td>
                         </tr>
-                    )
-                }
-            </tbody>
-        </Table>
-        <ToastContainer/>
+                    )}
+                </tbody>
+            </Table>
+            <ToastContainer />
         </div>
     )
 }
-function DisplayData(props){
-    return(
+
+function DisplayData({ orderDate, orderId, productId, email, productName, quantity, deliveryCity, status, dispatchOrder }) {
+    return (
         <tr>
-        <td>{props.productId}</td>
-        <td>{props.orderId}</td>
-        <td>
-            <button className="request-approve" onClick={()=> props.deleteRow(props.orderId,props.productId)}>
-                Resolved
-            </button>
-        </td>
+            <td>{orderDate}</td>
+            <td>{orderId}</td>
+            <td>{productId}</td>
+            <td>{email}</td>
+            <td>{productName}</td>
+            <td>{quantity}</td>
+            <td>{deliveryCity}</td>
+            <td>{status}</td>
+            <td>
+                <button className="request-dispatch" onClick={() => dispatchOrder(orderId, productName)}>
+                    Dispatch
+                </button>
+            </td>
         </tr>
     );
 }

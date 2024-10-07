@@ -1,0 +1,68 @@
+/* Style for the table */
+.request-table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.request-table th,
+.request-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.request-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.request-table td {
+    background-color: #ffffff;
+}
+
+/* Button styles */
+.request-table td button {
+    background-color: #28a745;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.request-table td button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Style for no data row */
+.request-table .no-data td {
+    text-align: center;
+    color: #999999;
+    font-size: 16px;
+    font-style: italic;
+}
+
+/* Style for the content wrapper */
+.content {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Toastify custom styles (optional) */
+.Toastify__toast {
+    font-size: 14px;
+}
+
+.Toastify__toast--success {
+    background-color: #28a745;
+}
+
+.Toastify__toast--error {
+    background-color: #dc3545;
+}

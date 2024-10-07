@@ -33,7 +33,7 @@ export default function AddCity() {
 
     const handleFileChange = (e) => {
         setCityData({
-            ...cityData, ["icon"]: e.target.file[0]
+            ...cityData, ["icon"]: e.target.files[0]
         });
     };
 
