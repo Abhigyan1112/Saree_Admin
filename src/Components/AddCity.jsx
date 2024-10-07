@@ -21,28 +21,20 @@ export default function AddCity() {
         state:'',
         pinCode:'',
         iconType:'',
-        icon: null
+        icon: null,
     });
 
     const handleCityChange = (e, field) => {
         setCityData({
             ...cityData, [field]: e.target.value
         });
+        console.log(cityData);
     };
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if(file){
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setCityData({
-                    ...cityData,
-                    iconType: file.type,
-                    icon: reader.result.split(',')[1]
-                });
-            };
-            reader.readAsDataURL(file);
-        }
+        setCityData({
+            ...cityData, ["icon"]: e.target.file[0]
+        });
     };
 
     const sendData = async(e) => {
@@ -59,22 +51,14 @@ export default function AddCity() {
             toast.error("ENTER PIN CODE");
             return;
         }
-
-        const data = {
-            pinCode: cityData.pinCode,
-            cityName: cityData.cityName,
-            state: cityData.state,
-            iconType: cityData.iconType,
-            cityIcon: cityData.icon
-        };
+        console.log(cityData);
         
+        let formData = new FormData();
+        formData.append("cityIcon",cityData.icon);
         try{
-            const response = await fetch(`${process.env.REACT_APP_BACKEND}/city/add`,{
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/city/add?pinCode=${cityData.pinCode}&cityName=${cityData.cityName}&state=${cityData.state}`,{
                 method:'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body:JSON.stringify(data)
+                body:formData,
             });
             const responseText= await response.text();
             if (responseText==='Invalid Name' || responseText==='Invalid pincode') {
@@ -117,7 +101,7 @@ export default function AddCity() {
                 </div>
                 <div className="wrapper">
                     <label>City Icon</label>
-                    <input type="file" onChange={handleFileChange} accept="image/*" />
+                    <input type="file" onChange={(e) => handleFileChange(e)} accept="image/*" />
                 </div>
                 <div className="wrapper">
                     <button className="add-button" type="submit">Add</button>
