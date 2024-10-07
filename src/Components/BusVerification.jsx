@@ -57,7 +57,7 @@ export default function Verify() {
                 {tableData.length > 0 ? (
                     tableData.map((business, index) => (
                         <DisplayData
-                            key={business.gstin}
+                            key={business.ownerEmail}
                             Name={business.businessName}
                             GSTIn={business.gstin}
                             Email={business.ownerEmail}

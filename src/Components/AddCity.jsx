@@ -19,14 +19,31 @@ export default function AddCity() {
     const [cityData,setCityData]=useState({
         cityName:'',
         state:'',
-        pinCode:''
+        pinCode:'',
+        iconType:'',
+        icon: null
     });
 
-    const handleCityChange = (e,field) => {
+    const handleCityChange = (e, field) => {
         setCityData({
-            ...cityData, [field]: e.target.value 
+            ...cityData, [field]: e.target.value
         });
-    }
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setCityData({
+                    ...cityData,
+                    iconType: file.type,
+                    icon: reader.result.split(',')[1]
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const sendData = async(e) => {
         e.preventDefault();
@@ -46,7 +63,9 @@ export default function AddCity() {
         const data = {
             pinCode: cityData.pinCode,
             cityName: cityData.cityName,
-            state: cityData.state
+            state: cityData.state,
+            iconType: cityData.iconType,
+            cityIcon: cityData.icon
         };
         
         try{
@@ -95,6 +114,10 @@ export default function AddCity() {
                 <div className="wrapper">
                     <label>PIN CODE</label>
                     <input value={cityData.pinCode} onChange={(e)=>handleCityChange(e,"pinCode")} placeholder='Enter PIN CODE' />
+                </div>
+                <div className="wrapper">
+                    <label>City Icon</label>
+                    <input type="file" onChange={handleFileChange} accept="image/*" />
                 </div>
                 <div className="wrapper">
                     <button className="add-button" type="submit">Add</button>
