@@ -59,7 +59,7 @@ export default function CatRequest() {
                     ))
                     ):(
                         <tr>
-                            <td>No data available</td>
+                            <td colSpan={2}>No data available</td>
                         </tr>
                     )
                 }

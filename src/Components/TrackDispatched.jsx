@@ -5,12 +5,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import './Track.css';
 
-export default function Tracker() {
+export default function DispatchedTracker() {
     const [tableData, setTableData] = useState([]);
     
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/getAllForAdmin?status=${"Packed"}`,{
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/getAllForAdmin?status=${"Dispatched"}`,{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ function DisplayData({ orderDate, orderId, productId, email, productName, quanti
             <td>{status}</td>
             <td>
                 <button className="request-dispatch" onClick={() => dispatchOrder(orderId, productId)}>
-                    Dispatch
+                    Reached City
                 </button>
             </td>
         </tr>

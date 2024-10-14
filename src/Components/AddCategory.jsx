@@ -33,7 +33,7 @@ export default function AddCategory() {
             <h1 className='add-city-title'>Add Category</h1>
             <form onSubmit={sendData}>
                 <div className="wrapper">
-                    <label>Cateogory Name</label>
+                    <label>Category Name</label>
                     <input value={categoryName} onChange={handleCategoryNameChange} placeholder='Enter Category Name' />
                 </div>
                 <div className="wrapper">

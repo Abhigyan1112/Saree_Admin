@@ -16,7 +16,10 @@ const Sidebar = () => {
                 <button onClick={()=>navigate("/verify")} className='nav-link text-white'>Business Verification</button>
                 </li>
                 <li className="nav-item">
-                <button onClick={()=>navigate("/tracker")} className='nav-link text-white'>Track Delivery</button>
+                <button onClick={()=>navigate("/tracker")} className='nav-link text-white'>Packed Items</button>
+                </li>
+                <li className="nav-item">
+                <button onClick={()=>navigate("/dispatchedTracker")} className='nav-link text-white'>Dispatched Items</button>
                 </li>
                 <li className="nav-item">
                 <button onClick={()=>navigate("/addCity")} className='nav-link text-white'>Add City</button>
