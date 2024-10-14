@@ -28,8 +28,8 @@ export default function DispatchedTracker() {
             const dispatched = tableData.find(order => order.orders.orderId === orderId && order.product.productId === productId);
             console.log(dispatched);
             let response = null;
-            if (dispatched.status === 'Packed') {
-                response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/setToDispatched?productId=${productId}&orderId=${orderId}`, {
+            if (dispatched.status === 'Dispatched') {
+                response = await fetch(`${process.env.REACT_APP_BACKEND}/prodOrd/setToInCity?productId=${productId}&orderId=${orderId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
