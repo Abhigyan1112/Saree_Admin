@@ -100,7 +100,7 @@ export default function AddEmployee() {
                 <div className="wrapper">
                     <label>Phone Number</label>
                     <input
-                        value={employeeData.password}
+                        value={employeeData.phoneNumber}
                         onChange={(e) => handleInputChange(e, 'phoneNumber')}
                         placeholder='Enter Phone Number'
                         type="phoneNumber"
@@ -109,7 +109,7 @@ export default function AddEmployee() {
                 <div className="wrapper">
                     <label>City</label>
                     <input
-                        value={employeeData.password}
+                        value={employeeData.city}
                         onChange={(e) => handleInputChange(e, 'city')}
                         placeholder='Enter City'
                         type="city"
