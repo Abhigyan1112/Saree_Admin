@@ -8,6 +8,8 @@ export default function AddEmployee() {
         employeeName: '',
         employeeEmail: '',
         password: '',
+        phoneNumber: '',
+        city:'',
     });
 
     const handleInputChange = (e, field) => {
@@ -32,6 +34,14 @@ export default function AddEmployee() {
         }
         if (employeeData.password === '') {
             toast.error("ENTER PASSWORD");
+            return;
+        }
+        if (employeeData.city === '') {
+            toast.error("ENTER CITY");
+            return;
+        }
+        if (employeeData.phoneNumber === '') {
+            toast.error("ENTER PHONE NUMBER");
             return;
         }
 
@@ -85,6 +95,24 @@ export default function AddEmployee() {
                         onChange={(e) => handleInputChange(e, 'password')}
                         placeholder='Enter Password'
                         type="password"
+                    />
+                </div>
+                <div className="wrapper">
+                    <label>Phone Number</label>
+                    <input
+                        value={employeeData.password}
+                        onChange={(e) => handleInputChange(e, 'phoneNumber')}
+                        placeholder='Enter Phone Number'
+                        type="phoneNumber"
+                    />
+                </div>
+                <div className="wrapper">
+                    <label>City</label>
+                    <input
+                        value={employeeData.password}
+                        onChange={(e) => handleInputChange(e, 'city')}
+                        placeholder='Enter City'
+                        type="city"
                     />
                 </div>
                 <div className="wrapper">
