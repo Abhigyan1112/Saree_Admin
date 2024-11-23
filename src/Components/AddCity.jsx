@@ -21,6 +21,7 @@ export default function AddCity() {
         state:'',
         pinCode:'',
         iconType:'',
+        description:'',
         icon: null,
     });
 
@@ -33,7 +34,7 @@ export default function AddCity() {
 
     const handleFileChange = (e) => {
         setCityData({
-            ...cityData, ["icon"]: e.target.files[0]
+            ...cityData, "icon": e.target.files[0]
         });
     };
 
@@ -51,16 +52,27 @@ export default function AddCity() {
             toast.error("ENTER PIN CODE");
             return;
         }
+        if(cityData.description===''){
+            toast.error("ENTER DECRIPTION OF ATLEAST 20 characters");
+            return;
+        }
+        if(cityData.description.length>1000){
+            toast.error("DESCRIPTION SHOULD HAVE LESS THAN 1000 characters");
+            return;
+        }
         console.log(cityData);
         
         let formData = new FormData();
         formData.append("cityIcon",cityData.icon);
         try{
-            const response = await fetch(`${process.env.REACT_APP_BACKEND}/city/add?pinCode=${cityData.pinCode}&cityName=${cityData.cityName}&state=${cityData.state}`,{
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/city/add?pinCode=${cityData.pinCode}&cityName=${cityData.cityName}&description=${cityData.description}&state=${cityData.state}`,{
                 method:'POST',
                 body:formData,
             });
             const responseText= await response.text();
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             if (responseText==='Invalid Name' || responseText==='Invalid pincode') {
                 toast.error(responseText.toUpperCase());
               } else {
@@ -94,6 +106,10 @@ export default function AddCity() {
                             <option key={index} value={state}>{state}</option>
                         ))}
                     </select>  
+                </div>
+                <div className="wrapper">
+                    <label>Description</label>
+                    <input value={cityData.description} onChange={(e)=>handleCityChange(e,"description")} placeholder='Enter Description under 1000 characters' />
                 </div>
                 <div className="wrapper">
                     <label>PIN CODE</label>
