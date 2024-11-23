@@ -17,12 +17,12 @@ export default function Verify() {
         fetchData();
     }, []);
     
-    const deleteRow = async(Email)=>{
+    const deleteRow = async(Email,status)=>{
         try{
             const businessToDelete = tableData.find(business => business.ownerEmail === Email);
             console.log("Sending business data:", businessToDelete);
 
-            const response = await fetch (`${process.env.REACT_APP_BACKEND}/business/changeApproval`, {
+            const response = await fetch (`${process.env.REACT_APP_BACKEND}/business/changeApproval?status=${status}`,{
                 method: 'POST',
                 headers:{
                     'Content-Type':'application/json',
@@ -83,8 +83,11 @@ function DisplayData(props){
             <td>{props.GSTIn}</td>
             <td>{props.Email}</td>
             <td>
-                <button className="request-approve" onClick={()=> props.deleteRow(props.Email)}>
-                    Resolved
+                <button className="request-approve" onClick={()=> props.deleteRow(props.Email,"Approved")}>
+                    Approve
+                </button>
+                <button className="request-approve" onClick={()=> props.deleteRow(props.Email,"Rejected")}>
+                    Reject
                 </button>
             </td>
         </tr>
